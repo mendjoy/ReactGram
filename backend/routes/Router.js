@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express();
 
-//rotas da aplicação 
-
-//teste router 
+//test route 
 router.get("/", (req, res) => {
-    res.send("API WORKING"); 
+    res.send("API WORKING")
 })
+
 
 module.exports = router;
