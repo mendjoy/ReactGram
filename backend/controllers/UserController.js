@@ -13,7 +13,7 @@ const generateToken = (id) => {
 };
 
 //REGISTER USER AND SIGN IN 
-    const register = async(req, res) => {
+    const register = async (req, res) => {
 
    const {name, email, password} = req.body;
 
@@ -50,8 +50,30 @@ const generateToken = (id) => {
 };
 
 //SIGN USER IN
-const login = (req, res) => {
-    res.send("Login")
+const login =  async (req, res) => {
+    
+    const { email, password } = req.body;
+    const user = await User.findOne({email});
+
+    //CHECK IF USERS EXISTS
+    if(!user){
+        res.status(404).json({errors: ["Usuário não encontrado."]})
+        return
+    };
+
+    //CHECK IF PASSWORD MATCHES
+    if(!(await bcrypt.compare(password, user.password))){
+        res.status(422).json({errors: ["Senha inválida"]})
+        return
+    };
+
+    //RETURN USER WITH TOKEN
+    res.status(201).json({
+        _id: user._id,
+        profileImage: user.profileImage,
+        token: generateToken(user._id)
+    })
+
 };
 
 module.exports = {

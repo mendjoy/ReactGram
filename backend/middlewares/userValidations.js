@@ -43,7 +43,8 @@ const loginValidation = () => {
             .withMessage("A senha é obrigatória!")
     ]
 
-}
+};
+
 
 module.exports = {
     userCreateValidation,
