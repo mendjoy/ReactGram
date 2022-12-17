@@ -13,7 +13,7 @@ const generateToken = (id) => {
 };
 
 //REGISTER USER AND SIGN IN 
-const register = async(req, res) => {
+    const register = async(req, res) => {
 
    const {name, email, password} = req.body;
 
@@ -49,6 +49,12 @@ const register = async(req, res) => {
 
 };
 
+//SIGN USER IN
+const login = (req, res) => {
+    res.send("Login")
+};
+
 module.exports = {
-    register
-}
+    register,
+    login,
+};
