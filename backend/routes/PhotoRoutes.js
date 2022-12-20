@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 //CONTROLLER
-const { insertPhoto, deletePhoto, getAllPhotos, getUserPhotos, getPhotoById, updatePhoto } = require("../controllers/PhotoController");
+const { insertPhoto, deletePhoto, getAllPhotos, getUserPhotos, getPhotoById, updatePhoto, likePhoto } = require("../controllers/PhotoController");
 
 //MIDDLEWARES
 const { photoInsertValidation, photoUpdateValidation } = require("../middlewares/photoValidation");
@@ -17,6 +17,7 @@ router.get("/", authGard, getAllPhotos);
 router.get("/user/:id", authGard, getUserPhotos);
 router.get("/:id", authGard, getPhotoById);
 router.put("/:id", authGard,photoUpdateValidation(), validate, updatePhoto);
+router.put("/like/:id", authGard, likePhoto);
 
 
 module.exports = router;
