@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 
 //Hooks
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+//Redux
+import { register, reset } from "../../slices/authSlice";
 
 
 const Register = () => {
@@ -13,6 +17,10 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const dispatch = useDispatch();
+
+  const { loading, error } = useSelector((state) => state.auth);
 
 
   const handleSubmit = (e) => {
@@ -23,8 +31,17 @@ const Register = () => {
       email, 
       password, 
       confirmPassword
-    }
+    };
+
+    dispatch(register(user));
   };
+
+//Clean all auth states
+  useEffect(() => {
+
+    dispatch(reset());
+
+  }, [dispatch])
 
   return (
     <div id="register">
@@ -43,13 +60,13 @@ const Register = () => {
           value={email || ""}/>
 
         <input type="password" 
-          placeholder="Senha" o
-          nChange={(e) => setPassword(e.target.value)} 
-          value={email || ""}/>
+          placeholder="Senha" 
+          onChange={(e) => setPassword(e.target.value)} 
+          value={ password || ""}/>
 
         <input type="password" 
           placeholder="Confirme a senha" 
-          onChange={(e) => setConfirmPassword(e.target.name)}  
+          onChange={(e) => setConfirmPassword(e.target.value)}  
           value={confirmPassword || ""}/>
 
         <input type="submit" value="Cadastrar" />
