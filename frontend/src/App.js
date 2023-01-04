@@ -15,6 +15,7 @@ import Login from './pages/Auth/Login';
 //Components
 import Navbar from "./components/Navbar";
 import Footer from './components/Footer';
+import EditProfile from './pages/EditProfile/EditProfile';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
        <div className="container">
         <Routes>
             <Route path="/" element={ auth ? <Home/> : <Navigate to="/login"/>}/> {/**/}
+            <Route  path="/profile" element={ !auth ? <EditProfile/> : <Navigate to="/login"/>}/>
             <Route path="/login" element={ !auth ? <Login/> : <Navigate to="/"/>}/>
             <Route  path="/register" element={ !auth ? <Register/> : <Navigate to="/"/>}/>
           </Routes>
